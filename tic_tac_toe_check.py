@@ -63,6 +63,9 @@ def check_winner(lst):
     return 0
 
 
+def test():
+    pass
+
 
 def take_values():
     lst=[]
