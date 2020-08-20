@@ -1,5 +1,5 @@
-from insert_record import *
-from update_record import Update
+from emp_mgt_system import insert_record as ir
+from emp_mgt_system import update_record as ur
 
 
 def core():
@@ -20,13 +20,14 @@ def core():
             email = str(input("Enter the email id"))
             date_entry = input('Enter a date in YYYY/MM/DD format')
             print(dicts)
-            a = Insert(name,emp_id,email,date_entry)
+            a = ir.Insert(name,emp_id,email,date_entry)
             dicts[i]=a
             print(dicts)
         if choice ==2:
             name = str(input("Enter name of emp:"))
             emp_id = int(input("Enter id of emp"))
-            u=Update(name,emp_id,dicts)
+            dicts=ur.Update(name,emp_id,dicts)
+            print(dicts)
 
 
 
