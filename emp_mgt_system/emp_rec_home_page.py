@@ -1,37 +1,52 @@
-from emp_mgt_system import insert_record as ir
-from emp_mgt_system import update_record as ur
+import insert_record as ir
+import update_record as ur
+import delete_record as dr
+
+
+def lst_insert(d, lst):
+    lst.append(d)
+    return lst
 
 
 def core():
-    i = 0
-    dicts = {}
-    while i < 100000:
+    print("       emp   management system            ")
+    lst = []
 
-        print("Enter 1 :to insert a record \n"
-              "Enter 2 :to update a record \n"
-              "Enter 3 :to delete a record \n"
-              "Enter 4:to search a record \n"
-              "Enter 5 :to list records \n"
-              "Enter 6 : to exit ")
-        choice = int(input())
-        if choice == 1:
+    i = 0
+    while i >= 0:
+        print("enter choice:(insert)/(update)/(delete)/(list)/(search)")
+        choice = str(input())
+        if choice == "insert":
             name = str(input("Enter name of emp:"))
             emp_id = int(input("Enter id of emp"))
             email = str(input("Enter the email id"))
             date_entry = input('Enter a date in YYYY/MM/DD format')
-            print(dicts)
-            a = ir.Insert(name,emp_id,email,date_entry)
-            dicts[i]=a
-            print(dicts)
-        if choice ==2:
-            name = str(input("Enter name of emp:"))
-            emp_id = int(input("Enter id of emp"))
-            dicts=ur.Update(name,emp_id,dicts)
-            print(dicts)
+            di = ir.Insert(name, emp_id, email, date_entry)
+            a = lst_insert(di, lst)
+            print(a)
+        if choice == "update":
+            id = int(input("Enter id of emp u want to update details"))
+            print("Enter the attribute which you want to update(name,email,dob)")
+            choice = str(input())
+            if choice == "name":
+                new_name = str(input("Enter new_name"))
+                a = ur.update(choice, id, lst, new_name)
+                print(a)
+            elif choice == "email":
+                new_email = str(input("Enter new_email"))
+                a = ur.update(choice, id, lst, new_email)
+                print(a)
+            else:
+                new_dob = str(input("Enter new_dob"))
+                a = ur.update(choice, id, lst, new_dob)
+                print(a)
 
+        if choice == "delete":
+            id = int(input("Enter id of emp u want to delete"))
+            a= dr.delete(id,lst)
+            print(a)
 
-
-        print("Do you wish to continue (Y/N")
+        print("Do you wish to continue (Y/N)")
         wish = input()
         if wish == 'N' or wish == 'n':
             break

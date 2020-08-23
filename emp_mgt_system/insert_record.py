@@ -1,5 +1,3 @@
-
-def Insert(name,emp_id,email,date_entry):
-
-    emp = {'name': name, 'empid': emp_id, 'email': email, 'date_entry': date_entry}
-    return emp
+def Insert(n, i, e, d):
+    dic = {'emp_name': n, 'emp_id': i, 'emp_email': e, 'emp_dob': d}
+    return dic
