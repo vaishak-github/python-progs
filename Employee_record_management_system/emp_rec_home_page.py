@@ -8,14 +8,19 @@ import validations as v
 import list_record as lr
 
 
-'''def check_unique(eid, lst):
-    eid=int(eid)
+def check_unique(eid, lst):
+    eid = int(eid)
+    count = 0
     for i in lst:
-        print("hello")
         if i['emp_id'] == eid:
-            print("please enter another id.This id already exists")
-            emp_id = input("Enter id of emp")
-            return int(emp_id)'''
+            count = 1
+
+    if count == 1:
+        print("Id already exists")
+        eid = input("Enter id of emp:")
+        check_unique(eid, lst)
+    else:
+        return eid
 
 
 def lst_insert(d, lst):
@@ -44,7 +49,7 @@ def core():
                 while not emp_id.isdigit():
                     print("Invalid id")
                     emp_id = input("Enter id of emp:")
-            #   a=check_unique(emp_id,lst)
+                emp_id = check_unique(emp_id, lst)
                 name = input("Enter name of emp:")
                 while not name.isalpha():
                     print("Invalid name")
