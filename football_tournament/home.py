@@ -5,16 +5,17 @@ def check_val_is_string(val):
     return val
 
 
-def dict_insert(l, pts, gs, gc):
-    dicti = {'name': l, "points": pts, "goals_scored": gs, "goals_conceded": gc}
+def dict_insert(li):
+    li = {li: li}
 
-    return dicti
+    return li
 
 
-def lst_insert(score_lst, a):
-    # a[1]['goal_Scored'=
-    score_lst.append(a)
-    return score_lst
+def lst_insert(a, value):
+    value.append(a)
+
+    return value
+
 
 
 def check_in_list(val, lst):
@@ -41,43 +42,82 @@ def take_values(lst):
     return lst
 
 
-def take_scores_of_team(lst, score_lst):
+def take_scores_of_team(lst, value):
     for i in range(len(lst)):
+        a = dict_insert(lst[i])
+        b = lst_insert(a, value)
+    print(b)
+    for i in range(0, len(lst)):
         j = i + 1
-        f = lst[i]
-        pts = 0
-        gs = 0
-        gc = 0
+        pts_first_team = 0
+        pts_second_team = 0
+        gs_count_first_team = 0
+        gc_count_first_team = 0
+
+        gs_count_second_team = 0
+        gc_count_second_team = 0
 
         for j in range(j, len(lst)):
-            val = str(input("Score of " + lst[i] + "-" + lst[j]))
-
+            val = str(input("Enter score of" + lst[i] + "-" + lst[j]))
             val = val.split("-")
-            gs_count = int(val[0])
-            gs = gs + gs_count
-            gc_count = int(val[1])
-            gc = gc + gc_count
-            if gs_count > gc_count:
-                pts_win = 3
-                pts = pts + pts_win
-            if gc_count > gs_count:
-                pts_loss = 0
-                pts = pts + pts_loss
-            if gc_count == gs_count:
-                pts_draw = 1
-                pts = pts_draw + pts
-            a = dict_insert(f, pts, gs, gc)
+            first_team_gs = int(val[0])
+            gs_count_first_team = first_team_gs + gs_count_first_team
+            b[i]['gs'] = gs_count_first_team
+            #  print(first_team_gs)
 
-        b = lst_insert(score_lst, a)
-    return b
+            first_team_gc = int(val[1])
+            gc_count_first_team = first_team_gc + gc_count_first_team
+            b[i]['gc'] = gc_count_first_team
+            #  print(first_team_gc)
+
+            second_team_gs = int(val[1])
+            gs_count_second_team = second_team_gs + gs_count_second_team
+            b[j]['gs'] = gs_count_second_team
+            # print(second_team_gs)
+
+            second_team_gc = int(val[0])
+            gc_count_second_team = second_team_gc + gc_count_second_team
+            b[j]['gc'] = gc_count_second_team
+            #  print(second_team_gc)
+
+            if first_team_gs > first_team_gc:
+                pts_won_by_first_team = 3
+                pts_first_team = pts_won_by_first_team + pts_first_team
+                b[i]['pts'] = pts_first_team
+            else:
+                pts_won_by_first_team = 0
+                pts_first_team = pts_won_by_first_team + pts_first_team
+                b[i]['pts'] = pts_first_team
+            if second_team_gs > second_team_gc:
+                pts_won_by_second_team = 3
+                pts_second_team = pts_won_by_second_team + pts_second_team
+                b[j]['pts'] = pts_second_team
+            else:
+                pts_won_by_second_team = 0
+                pts_second_team = pts_won_by_second_team + pts_second_team
+                b[j]['pts'] = pts_second_team
+            if first_team_gs == second_team_gs:
+                pts_won_by_first_team = pts_won_by_second_team = 1
+                pts_first_team = pts_won_by_first_team + pts_first_team
+                b[i]['pts'] = pts_first_team
+                pts_second_team = pts_won_by_second_team + pts_second_team
+                b[j]['pts'] = pts_second_team
+            gs_count_second_team = 0
+            gc_count_second_team = 0
+
+            c = lst_insert(b, value)
+
+        print(c)
+        return (c)
 
 
 def home():
     lst = []
-    score_lst = []
+    value = []
+
     take_values(lst)
     print(lst)
-    b = take_scores_of_team(lst, score_lst)
+    b = take_scores_of_team(lst, value)
     print(b)
 
 
