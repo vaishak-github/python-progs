@@ -1,7 +1,8 @@
 def check_val_is_string(val):
-    while val.isdigit():
+    while val.isdigit() or len(val)==0:
         print("Please enter alphabetic team name")
         val = input(str("enter team name"))
+        val = val.lstrip()
     return val
 
 
@@ -17,7 +18,6 @@ def lst_insert(a, value):
     return value
 
 
-
 def check_in_list(val, lst):
     count = 0
     if val in lst:
@@ -26,8 +26,9 @@ def check_in_list(val, lst):
         print("Team already exists.Please enter new team name")
         val = input(str("enter team name"))
         val = val.lstrip()
-        check_val_is_string(val)
+        val=check_val_is_string(val)
         check_in_list(val, lst)
+        return val
     else:
         return val
 
@@ -106,9 +107,7 @@ def take_scores_of_team(lst, value):
             gc_count_second_team = 0
 
             c = lst_insert(b, value)
-
-        print(c)
-        return (c)
+    return(c)
 
 
 def home():
