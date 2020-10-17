@@ -1,11 +1,11 @@
 def update(choice, c, lst, n):
-    if choice == "name":
+    if choice == 1:
         for i in lst:
             if i['emp_id'] == c:
                 i['emp_name'] = n
         return i['emp_name']
 
-    elif choice == "email":
+    elif choice == 2:
         for i in range(len(lst)):
             # for d in lst[i]:
             if lst[i]["emp_id"] == c:
