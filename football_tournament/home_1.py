@@ -101,23 +101,24 @@ def take_scores(lst, team_lst):
 
 def semifinalists(li):
     lii = li.copy()  # lii is second list ,li is original list
-    for i in range(0,len(lii)):
-        j = i + 1
-        for j in range(len(lii)):
-            if lii[i]['pts'] < lii[j]['pts']:
-                temp = lii[i]['pos']
-                lii[i]['pos'] = lii[j]['pos']
-                lii[j]['pos'] = temp
+
+    for i in range(0, len(lii)):
+        for j in range(i + 1, len(lii)):
+
+                if lii[i]['pts'] < lii[j]['pts']:
+                    temp = lii[i]['pos']
+                    lii[i]['pos'] = lii[j]['pos']
+                    lii[j]['pos'] = temp
     print("")
     print(lii)
     print("")
-    for i in range(len(lii) - 1, 0, -1):
-        for j in range(i):
-            if lii[j]['pts'] == lii[j+1]['pts']:
-                if lii[j]['gd'] < lii[j+1]['gd']:
-                    temp = lii[j]['pos']
-                    lii[j]['pos'] = lii[j+1]['pos']
-                    lii[j+1]['pos'] = temp
+    for i in range(0, len(lii)):
+        for j in range(i + 1, len(lii)):
+                if lii[i]['pts'] == lii[j]['pts']:
+                    if lii[i]['gd'] < lii[j]['gd']:
+                        temp = lii[i]['pos']
+                        lii[i]['pos'] = lii[j]['pos']
+                        lii[j]['pos'] = temp
     print("                  ||Points after quarterfinals are ||                ")
     for i in range(0, len(lii)):
         print("team||", lii[i]['team'], " goals scored||", lii[i]['gs'], " goals conceded||", lii[i]['gc'],

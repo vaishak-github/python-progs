@@ -2,9 +2,9 @@
 list = [12,20,1,23,2,50,11,45]
 
 for i in range(len(list)):
-    j=i+1
-    for j in range(len(list)):
-        if list[i]>list[j]:
+
+    for j in range(i+1,len(list)):
+        if list[i]<list[j]:
             temp = list[i]
             list[i] = list[j]
             list[j] = temp
