@@ -104,21 +104,31 @@ def semifinalists(li):
 
     for i in range(0, len(lii)):
         for j in range(i + 1, len(lii)):
-
-                if lii[i]['pts'] < lii[j]['pts']:
+            if lii[i]['pts'] < lii[j]['pts']:
+                if lii[i]['pos'] < lii[j]['pos']:
                     temp = lii[i]['pos']
                     lii[i]['pos'] = lii[j]['pos']
                     lii[j]['pos'] = temp
+
+                else:
+                    continue
+
+
     print("")
     print(lii)
     print("")
     for i in range(0, len(lii)):
         for j in range(i + 1, len(lii)):
-                if lii[i]['pts'] == lii[j]['pts']:
-                    if lii[i]['gd'] < lii[j]['gd']:
+            if lii[i]['pts'] == lii[j]['pts']:
+                if lii[i]['gd'] < lii[j]['gd']:
+                    if lii[i]['pos'] < lii[j]['pos']:
                         temp = lii[i]['pos']
                         lii[i]['pos'] = lii[j]['pos']
                         lii[j]['pos'] = temp
+
+                    else:
+                        continue
+
     print("                  ||Points after quarterfinals are ||                ")
     for i in range(0, len(lii)):
         print("team||", lii[i]['team'], " goals scored||", lii[i]['gs'], " goals conceded||", lii[i]['gc'],
