@@ -1,3 +1,6 @@
+from tabulate import tabulate
+
+
 def check_team_name_is_string(team_name):
     while team_name.isdigit() or len(team_name) == 0:
         print("Please enter alphabetic team name")
@@ -22,7 +25,7 @@ def check_in_list(team_name, team_lst):
 
 
 def dict_insert(team_name):
-    d = {'team': team_name, 'gs': 0, 'gc': 0, 'pts': 0, 'w': 0, 'l': 0, 'd': 0, 'pos': 0}
+    d = {'team': team_name, 'pts': 0, 'gs': 0, 'gc': 0, 'w': 0, 'l': 0, 'd': 0,'gd':0, 'pos': 0}
 
     return d
 
@@ -103,7 +106,7 @@ def semifinalists(li):
     lii = li.copy()  # lii is second list ,li is original list
 
     for i in range(0, len(lii)):
-        for j in range(i + 1, len(lii)):
+        for j in range(0, len(lii)):
             if lii[i]['pts'] < lii[j]['pts']:
                 if lii[i]['pos'] < lii[j]['pos']:
                     temp = lii[i]['pos']
@@ -113,12 +116,10 @@ def semifinalists(li):
                 else:
                     continue
 
+    print("\n")
 
-    print("")
-    print(lii)
-    print("")
     for i in range(0, len(lii)):
-        for j in range(i + 1, len(lii)):
+        for j in range(0, len(lii)):
             if lii[i]['pts'] == lii[j]['pts']:
                 if lii[i]['gd'] < lii[j]['gd']:
                     if lii[i]['pos'] < lii[j]['pos']:
@@ -129,28 +130,29 @@ def semifinalists(li):
                     else:
                         continue
 
+    header = lii[0].keys()
+    rows = [x.values() for x in lii]
     print("                  ||Points after quarterfinals are ||                ")
-    for i in range(0, len(lii)):
-        print("team||", lii[i]['team'], " goals scored||", lii[i]['gs'], " goals conceded||", lii[i]['gc'],
-              " points||", lii[i]['pts'], " win||", lii[i]['w'], " loss||", lii[i]['l'], " draw||", lii[i]['d'],
-              " gd||", lii[i]['gd'], " position||", lii[i]['pos'])
+    print(tabulate(rows, header))
+    print("\n")
+
+
+
 
     # arranging all teams in order of points
     for i in range(0, len(lii)):
-        for j in range(i + 1, len(lii)):
-            if lii[i]['pos'] > lii[j]['pos']:
-                temp = lii[j]
-                lii[j] = lii[i]
-                lii[i] = temp
+        for j in range(0, len(lii)):
+            if lii[i]['pos'] < lii[j]['pos']:
+                temp = lii[i]
+                lii[i] = lii[j]
+                lii[j] = temp
 
     lst2 = lii[0:4]
-    print("")
+    header = lst2[0].keys()
+    rows = [x.values() for x in lst2]
     print("                  ||Semifinalists||                  ")
-    for i in range(0, len(lst2)):
-        print("team||", lst2[i]['team'], " goals scored||", lst2[i]['gs'], " goals conceded||", lst2[i]['gc'],
-              " points||", lst2[i]['pts'], " win||", lst2[i]['w'], " loss||", lst2[i]['l'], " draw||", lst2[i]['d'],
-              " gd||", lst2[i]['gd'], " position||", lst2[i]['pos'])
-
+    print(tabulate(rows, header))
+    print("\n")
     return lst2
 
 
@@ -163,50 +165,71 @@ def finalists(li):
         d = dict_insert(a)
         fin_lst.append(d)
     hello = take_scores(fin_lst, team_lst)
-
+    header = hello[0].keys()
+    rows = [x.values() for x in hello]
     print("                 ||table after semis matches||       ")
+    print(tabulate(rows, header))
+    print("\n")
     for i in range(0, len(hello)):
-        print("team||", hello[i]['team'], " goals scored||", hello[i]['gs'], " goals conceded||", hello[i]['gc'],
-              " points||", hello[i]['pts'], " win||", hello[i]['w'], " loss||", hello[i]['l'], " draw||", hello[i]['d'],
-              " gd||", hello[i]['gd'], " position||", hello[i]['pos'])
-
-    for i in range(0, len(hello)):
-        for j in range(i + 1, len(hello)):
+        for j in range(0, len(hello)):
             if hello[i]['pts'] < hello[j]['pts']:
                 temp = hello[j]['pos']
                 hello[j]['pos'] = hello[i]['pos']
                 hello[i]['pos'] = temp
 
     for i in range(0, len(hello)):
-        for j in range(i + 1, len(hello)):
+        for j in range(0, len(hello)):
             if hello[i]['pts'] == hello[j]['pts']:
                 if hello[i]['gd'] < hello[j]['gd']:
                     temp = hello[j]['pos']
                     hello[j]['pos'] = hello[i]['pos']
                     hello[i]['pos'] = temp
+    header = hello[0].keys()
+    rows = [x.values() for x in hello]
 
     print("                   ||final pts after semis||")
-    for i in range(0, len(hello)):
-        print("team||", hello[i]['team'], " goals scored||", hello[i]['gs'], " goals conceded||", hello[i]['gc'],
-              " points||", hello[i]['pts'], " win||", hello[i]['w'], " loss||", hello[i]['l'], " draw||", hello[i]['d'],
-              " gd||", hello[i]['gd'], " position||", hello[i]['pos'])
+    print(tabulate(rows, header))
+    print("\n")
 
     lst3 = hello[0:2]
+    header = lst3[0].keys()
+    rows = [x.values() for x in lst3]
     print("                   ||Finalists||")
-    for i in range(0, len(lst3)):
-        print("team||", lst3[i]['team'], " goals scored||", lst3[i]['gs'], " goals conceded||", lst3[i]['gc'],
-              " points||", lst3[i]['pts'], " win||", lst3[i]['w'], " loss||", lst3[i]['l'], " draw||", lst3[i]['d'],
-              " gd||", lst3[i]['gd'], " position||", lst3[i]['pos'])
+    print(tabulate(rows, header))
+    print("\n")
+    return lst3
+
+
+def winners(li):
+    w_lst = []
+    team_lst = []
+    for i in range(0, len(li)):
+        a = li[i]['team']
+        team_lst.append(a)
+        d = dict_insert(a)
+        w_lst.append(d)
+    winner = take_scores(w_lst, team_lst)
+
+    if winner[0]['gs'] < winner[1]['gs']:
+        header = winner[0].keys()
+        rows = [x.values() for x in winner]
+        print("                Team",winner[1]['team'], " are the champions of CL-20")
+        print(tabulate(rows,header))
+    else:
+        header = winner[0].keys()
+        rows = [x.values() for x in winner]
+        print("                Team", winner[0]['team'], " are the champions of CL-20")
+        print(tabulate(rows, header))
 
 
 def home():
+    print("                  Welcome to Champions league 2020                         ")
     lst = []
     fi = []
     li = take_values(lst)
-    print("                ||the list of dict||              ")
-    print(li)
     a = semifinalists(li)
-    finalists(a)
+    b = finalists(a)
+    winners(b)
 
 
 home()
